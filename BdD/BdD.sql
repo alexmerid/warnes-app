@@ -37,12 +37,9 @@ SELECT
     l.potencia,
     pl.estado
 from
-    poste p,
-    poste_luminaria pl,
-    luminaria l
-where
-    p.id = pl.id_poste
-    and pl.id_luminaria = l.id
+    poste p
+    inner join poste_luminaria pl on p.id = pl.id_poste
+    inner join luminaria l on pl.id_luminaria = l.id
 ORDER BY
     p.id;
 
@@ -54,11 +51,8 @@ SELECT
     l.potencia,
     pl.estado
 from
-    poste p,
-    poste_luminaria pl,
-    luminaria l
-where
-    p.id = pl.id_poste
-    and pl.id_luminaria = l.id
+    poste p
+    inner join poste_luminaria pl on p.id = pl.id_poste
+    inner join luminaria l on pl.id_luminaria = l.id
 ORDER BY
     p.id;
