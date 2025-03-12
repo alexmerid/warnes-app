@@ -14,6 +14,7 @@ mysql.init_app(app)
 
 @app.route('/')
 def inicio():
+
     return render_template('sitio/index.html')
 
 
@@ -39,6 +40,18 @@ def luminarias_guardar():
     conexion = mysql.connect()
     cursor = conexion.cursor()
     cursor.execute(sql, datos)
+    conexion.commit()
+
+    return redirect('/luminarias')
+
+
+@app.route('/luminarias/borrar', methods=['POST'])
+def luminarias_borrar():
+    _id = request.form['txtId']
+
+    conexion = mysql.connect()
+    cursor = conexion.cursor()
+    cursor.execute("DELETE FROM luminaria WHERE id = %s;", (_id))
     conexion.commit()
 
     return redirect('/luminarias')

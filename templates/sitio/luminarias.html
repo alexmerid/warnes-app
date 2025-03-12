@@ -24,7 +24,7 @@
             </div>
 
             <input type="submit" value="Guardar">
-            <!-- <button type="submit">Agregar</button> -->
+            <!-- <button type="submit">Guardar</button> -->
         </fieldset>
     </form>
 
@@ -44,7 +44,12 @@
                 <td>{{ luminaria [0] }}</td>
                 <td>{{ luminaria [1] }}</td>
                 <td>{{ luminaria [2] }}</td>
-                <td>Eliminar</td>
+                <td>
+                    <form action="luminarias/borrar" method="post">
+                        <input value="{{ luminaria [0] }}"" type=" text" name="txtId" id="txtId" hidden="true">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
