@@ -1,0 +1,55 @@
+{% include 'sitio/cabecera.html' %}
+
+<!-- Inicio Cuerpo -->
+<main>
+    <h1>Luminarias</h1>
+
+    <form action="luminarias/guardar" method="post">
+        <fieldset>
+            <legend>Datos para la Nueva Luminaria</legend>
+
+            <div>
+                <label for="">ID</label>
+                <input type="text" name="txtId" placeholder="ID">
+            </div>
+
+            <div>
+                <label for="">Tipo</label>
+                <input type="text" name="txtTipo" placeholder="Tipo">
+            </div>
+
+            <div>
+                <label for="">Potencia</label>
+                <input type="text" name="txtPotencia" placeholder="Potencia">
+            </div>
+
+            <input type="submit" value="Guardar">
+            <!-- <button type="submit">Agregar</button> -->
+        </fieldset>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Potencia</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for luminaria in luminarias %}
+            <tr>
+                <td>{{ luminaria [0] }}</td>
+                <td>{{ luminaria [1] }}</td>
+                <td>{{ luminaria [2] }}</td>
+                <td>Eliminar</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+<!-- Fin Cuerpo -->
+
+{% include 'sitio/pie.html' %}
