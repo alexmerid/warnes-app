@@ -1,0 +1,3 @@
+## Paquetes
+flask
+flask-mysql
