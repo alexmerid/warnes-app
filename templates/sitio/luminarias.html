@@ -4,27 +4,33 @@
 <main class="contenedor">
     <h1>Luminarias</h1>
 
-    <form action="luminarias/guardar" method="post">
+    <form class="formulario" action="luminarias/guardar" method="post">
         <fieldset>
             <legend>Datos para la Nueva Luminaria</legend>
+            <div class="contenedor-campos">
+                <div class="campo">
+                    <label class="campo__label" for="">ID</label>
+                    <input class="campo__field" type="text" name="txtId" placeholder="ID">
+                </div class="campo">
 
-            <div>
-                <label for="">ID</label>
-                <input type="text" name="txtId" placeholder="ID">
+                <div>
+                    <label class="campo__label" for="">Tipo</label>
+                    <input class="campo__field" type="text" name="txtTipo" placeholder="Tipo">
+                </div>
+
+                <div class="campo">
+                    <label class="campo__label" for="">Potencia</label>
+                    <input class="campo__field" type="text" name="txtPotencia" placeholder="Potencia">
+                </div>
+                <div class="contenedor-boton">
+                    <input class="boton" type="submit" value="Guardar">
+                    <!-- <button type="submit">Guardar</button> -->
+                </div>
             </div>
 
-            <div>
-                <label for="">Tipo</label>
-                <input type="text" name="txtTipo" placeholder="Tipo">
-            </div>
 
-            <div>
-                <label for="">Potencia</label>
-                <input type="text" name="txtPotencia" placeholder="Potencia">
-            </div>
 
-            <input type="submit" value="Guardar">
-            <!-- <button type="submit">Guardar</button> -->
+
         </fieldset>
     </form>
 
