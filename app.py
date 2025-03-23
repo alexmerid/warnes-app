@@ -23,10 +23,10 @@ def luminarias():
     conexion = mysql.connect()
     cursor = conexion.cursor()
     cursor.execute("SELECT * FROM luminaria")
-    luminarias = cursor.fetchall()
+    luminaria = cursor.fetchall()
     conexion.commit()
 
-    return render_template('sitio/luminarias.html', luminarias=luminarias)
+    return render_template('sitio/luminarias.html', luminarias=luminaria)
 
 
 @app.route('/luminarias/guardar', methods=['POST'])

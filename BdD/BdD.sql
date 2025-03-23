@@ -22,9 +22,10 @@ CREATE TABLE
         id_poste int not null,
         id_luminaria int not null,
         estado varchar(25),
+        fecha_inst date,
         PRIMARY KEY (id),
-        FOREIGN KEY (id_poste) REFERENCES poste (id),
-        FOREIGN KEY (id_luminaria) REFERENCES luminaria (id)
+        FOREIGN KEY (id_poste) REFERENCES poste (id) ON DELETE NO ACTION ON UPDATE CASCADE,
+        FOREIGN KEY (id_luminaria) REFERENCES luminaria (id) ON DELETE NO ACTION ON UPDATE CASCADE
     );
 
 -- CONSULTAS
