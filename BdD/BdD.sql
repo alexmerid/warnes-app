@@ -46,7 +46,9 @@ ORDER BY
 
 SELECT
     p.id,
-    CONCAT ('POINT(', p.latitud, ' ', p.longitud, ')') as wkt,
+    CONCAT ('POINT(', p.longitud, ' ', p.latitud, ')') as wkt,
+    p.latitud,
+    p.longitud,
     p.observacion,
     l.tipo,
     l.potencia,
@@ -55,5 +57,7 @@ from
     poste p
     inner join poste_luminaria pl on p.id = pl.id_poste
     inner join luminaria l on pl.id_luminaria = l.id
+WHERE
+    p.id > 268
 ORDER BY
     p.id;
