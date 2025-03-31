@@ -1,4 +1,4 @@
--- TABLAS
+/* TABLAS */
 CREATE TABLE
     luminaria (
         id int NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE
         FOREIGN KEY (id_luminaria) REFERENCES luminaria (id) ON DELETE NO ACTION ON UPDATE CASCADE
     );
 
--- CONSULTAS
+/*  CONSULTAS */
 SELECT
     p.id,
     p.latitud,
@@ -68,6 +68,13 @@ where
 GROUP BY
     p.id;
 
+SELECT
+    *
+from
+    poste_luminaria pl
+    inner join luminaria l on pl.id_luminaria = l.id;
+
+/* BORRAR */
 SELECT
     p.id,
     CONCAT ('POINT(', p.longitud, ' ', p.latitud, ')') as wkt,
