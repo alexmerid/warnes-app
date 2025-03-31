@@ -8,12 +8,22 @@ CREATE TABLE
     );
 
 CREATE TABLE
+    referencia (
+        id int not null,
+        distrito int,
+        descripcion varchar(255),
+        PRIMARY KEY (id)
+    );
+
+CREATE TABLE
     poste (
         id int auto_increment,
         latitud double,
         longitud double,
         observacion varchar(255),
-        PRIMARY KEY (id)
+        id_referencia int,
+        PRIMARY KEY (id),
+        FOREIGN KEY (id_referencia) REFERENCES referencia (id) ON DELETE NO ACTION ON UPDATE CASCADE
     );
 
 CREATE TABLE
