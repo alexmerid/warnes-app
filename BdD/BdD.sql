@@ -56,6 +56,20 @@ ORDER BY
 
 SELECT
     p.id,
+    p.latitud,
+    p.longitud,
+    p.observacion,
+    count(pl.id) as lum
+from
+    poste p
+    inner join poste_luminaria pl on p.id = pl.id_poste
+where
+    p.id > 268
+GROUP BY
+    p.id;
+
+SELECT
+    p.id,
     CONCAT ('POINT(', p.longitud, ' ', p.latitud, ')') as wkt,
     p.latitud,
     p.longitud,
