@@ -78,7 +78,7 @@ from
     poste_luminaria pl
     inner join luminaria l on pl.id_luminaria = l.id;
 
-/* Cantidad de Luminarias por Tipo y Potencia */
+/* Cantidad Total de Luminarias por Tipo y Potencia */
 SELECT
     l.tipo,
     l.potencia,
@@ -91,6 +91,36 @@ GROUP BY
     l.potencia
 order by
     l.id;
+
+/* Cantidad de Luminarias por Tipo y Potencia para una Referencia específica */
+SELECT
+    l.tipo,
+    l.potencia,
+    count(pl.id_luminaria) as cantidad
+from
+    poste p
+    inner join poste_luminaria pl on p.id = pl.id_poste
+    inner join luminaria l on pl.id_luminaria = l.id
+where
+    p.id_referencia = 7001
+GROUP BY
+    pl.id_luminaria;
+
+/* Cantidad de Luminarias por Tipo y Potencia agrupadas por referencia */
+SELECT
+    r.distrito,
+    r.descripcion,
+    l.tipo,
+    l.potencia,
+    count(pl.id_luminaria) as cantidad
+from
+    poste p
+    inner join poste_luminaria pl on p.id = pl.id_poste
+    inner join luminaria l on pl.id_luminaria = l.id
+    inner join referencia r on p.id_referencia = r.id
+GROUP BY
+    p.id_referencia,
+    pl.id_luminaria;
 
 /*  Modificar la referencia de un grupo de postes
 Usar con PRECAUCIÓN */
