@@ -39,6 +39,7 @@ CREATE TABLE
     );
 
 /*  CONSULTAS */
+/* Postes y Luminarias */
 SELECT
     p.id,
     p.latitud,
@@ -51,20 +52,23 @@ from
     poste p
     inner join poste_luminaria pl on p.id = pl.id_poste
     inner join luminaria l on pl.id_luminaria = l.id
+where
+    p.id < 269
 ORDER BY
     p.id;
 
+/* Postes y cantidad de luminarias por poste */
 SELECT
     p.id,
     p.latitud,
     p.longitud,
     p.observacion,
-    count(pl.id) as lum
+    count(pl.id) as num_lum
 from
     poste p
     inner join poste_luminaria pl on p.id = pl.id_poste
 where
-    p.id > 268
+    p.id < 269
 GROUP BY
     p.id;
 
@@ -74,21 +78,33 @@ from
     poste_luminaria pl
     inner join luminaria l on pl.id_luminaria = l.id;
 
-/* BORRAR */
+/* Cantidad de Luminarias por Tipo y Potencia */
 SELECT
-    p.id,
-    CONCAT ('POINT(', p.longitud, ' ', p.latitud, ')') as wkt,
-    p.latitud,
-    p.longitud,
-    p.observacion,
     l.tipo,
     l.potencia,
-    pl.estado
+    count(pl.id_luminaria)
 from
-    poste p
-    inner join poste_luminaria pl on p.id = pl.id_poste
+    poste_luminaria pl
     inner join luminaria l on pl.id_luminaria = l.id
-WHERE
-    p.id > 268
-ORDER BY
-    p.id;
+GROUP BY
+    l.tipo,
+    l.potencia
+order by
+    l.id;
+
+/*  Modificar la referencia de un grupo de postes
+Usar con PRECAUCIÓN */
+update poste
+set
+    id_referencia = 1000
+where
+    id >= 1
+    and id <= 268;
+
+/* SELECT p.id, CONCAT ('POINT(', p.longitud, ' ', p.latitud, ')') as wkt, p.latitud, p.longitud, p.observacion,
+l.tipo, l.potencia, pl.estado
+from poste p
+inner join poste_luminaria pl on p.id = pl.id_poste
+inner join luminaria l on pl.id_luminaria = l.id
+WHERE p.id > 268
+ORDER BY p.id; */
