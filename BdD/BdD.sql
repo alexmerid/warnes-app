@@ -106,7 +106,7 @@ where
 GROUP BY
     pl.id_luminaria;
 
-/* Cantidad de Luminarias por Tipo y Potencia agrupadas por referencia */
+/* Cantidad de Luminarias por Tipo y Potencia agrupadas por Referencia */
 SELECT
     r.distrito,
     r.descripcion,

@@ -1,5 +1,6 @@
 from flaskext.mysql import MySQL
 from flask import Flask
+import csv
 
 
 def sumario():
@@ -26,16 +27,24 @@ def sumario():
     conexion.commit()
     id_ant = 0
     total = 0
-    for t in tabla:
-        if t[0] != id_ant:
-            if id_ant > 0:
-                print(f"Total {total}\n")
-                total = 0
-            print(f"Distrito {t[1]} - {t[2]} ")
-        print(f"{t[3]} {t[4]} {t[5]} ")
-        total += t[5]
-        id_ant = t[0]
-    print(f"Total {total}")
+    with open("tmp/archivo.csv", "w") as archivo:
+        writer = csv.writer(archivo)
+        writer.writerow([".", "..", "..."])
+        for t in tabla:
+            if t[0] != id_ant:
+                if id_ant > 0:
+                    writer.writerow(["Total", "", total])
+                    writer.writerow(["", "", ""])
+                    total = 0
+                if t[0] >= 1000:
+                    writer.writerow([f"Distrito {t[1]} - {t[2]} ", "", ""])
+                else:
+                    writer.writerow([t[2], "", ""])
+                writer.writerow(["Tipo", "Potencia", "Cantidad"])
+            writer.writerow([t[3], t[4], t[5]])
+            total += t[5]
+            id_ant = t[0]
+        writer.writerow(["Total", "", total])
 
 
 sumario()
