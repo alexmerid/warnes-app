@@ -1,0 +1,66 @@
+{% include 'sitio/cabecera.html' %}
+
+<!-- Inicio Cuerpo -->
+<main class="contenedor">
+    <h1>Luminarias</h1>
+
+    <form class="formulario" action="luminarias/guardar" method="post">
+        <fieldset>
+            <legend>Datos para la Nueva Luminaria</legend>
+            <div class="contenedor-campos">
+                <div class="campo">
+                    <label class="campo__label" for="">ID</label>
+                    <input class="campo__field" type="text" name="txtId" placeholder="ID">
+                </div class="campo">
+
+                <div>
+                    <label class="campo__label" for="">Tipo</label>
+                    <input class="campo__field" type="text" name="txtTipo" placeholder="Tipo">
+                </div>
+
+                <div class="campo">
+                    <label class="campo__label" for="">Potencia</label>
+                    <input class="campo__field" type="text" name="txtPotencia" placeholder="Potencia">
+                </div>
+                <div class="contenedor-boton">
+                    <input class="boton" type="submit" value="Guardar">
+                    <!-- <button type="submit">Guardar</button> -->
+                </div>
+            </div>
+
+
+
+
+        </fieldset>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Potencia</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for luminaria in luminarias %}
+            <tr>
+                <td>{{ luminaria [0] }}</td>
+                <td>{{ luminaria [1] }}</td>
+                <td>{{ luminaria [2] }}</td>
+                <td>
+                    <form action="luminarias/borrar" method="post">
+                        <input value="{{ luminaria [0] }}"" type=" text" name="txtId" id="txtId" hidden="true">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+<!-- Fin Cuerpo -->
+
+{% include 'sitio/pie.html' %}
