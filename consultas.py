@@ -27,7 +27,7 @@ def sumario():
     conexion.commit()
     id_ant = 0
     total = 0
-    with open("tmp/archivo.csv", "w") as archivo:
+    with open("tmp/sumario.csv", "w") as archivo:
         writer = csv.writer(archivo)
         writer.writerow([".", "..", "..."])
         for t in tabla:
@@ -47,4 +47,54 @@ def sumario():
         writer.writerow(["Total", "", total])
 
 
-sumario()
+def rep_luminaria():
+    app = Flask(__name__)
+    mysql = MySQL()
+
+    app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+    app.config['MYSQL_DATABASE_USER'] = 'root'
+    app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
+    app.config['MYSQL_DATABASE_DB'] = 'warnes'
+    mysql.init_app(app)
+
+    consulta = "SELECT * from luminaria"
+    conexion = mysql.connect()
+    cursor = conexion.cursor()
+    cursor.execute(consulta)
+    luminarias = cursor.fetchall()
+    conexion.commit()
+    for lum in luminarias:
+        _id_luminaria = lum[0]
+        _tipo = str(lum[1]).split(" ", 1)[0]
+        if lum[2] is None:
+            _potencia = ""
+        else:
+            _potencia = lum[2]
+
+        sql = """
+            SELECT p.id, p.latitud, p.longitud, p.observacion, l.tipo, l.potencia, pl.estado
+            from poste p
+            inner join poste_luminaria pl on p.id = pl.id_poste
+            inner join luminaria l on pl.id_luminaria = l.id
+            WHERE pl.id_luminaria = %s
+            ORDER BY p.id;
+            """
+        conexion = mysql.connect()
+        cursor = conexion.cursor()
+        cursor.execute(sql, (_id_luminaria))
+        pos_lum = cursor.fetchall()
+        conexion.commit()
+        if not pos_lum:
+            continue
+        nom_arch = f"tmp/{_tipo}{_potencia}-{len(pos_lum)}.csv"
+        with open(nom_arch, "w") as archivo:
+            writer = csv.writer(archivo)
+            writer.writerow(["id", "latitud", "longitud",
+                            "observacion", "tipo", "potencia", "estado"])
+            for pl in pos_lum:
+                writer.writerow(
+                    [pl[0], pl[1], pl[2], pl[3], pl[4], pl[5], pl[6]])
+
+
+# sumario()
+rep_luminaria()
