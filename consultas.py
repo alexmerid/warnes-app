@@ -72,7 +72,7 @@ def rep_luminaria():
             _potencia = lum[2]
 
         sql = """
-            SELECT p.id, p.latitud, p.longitud, p.observacion, l.tipo, l.potencia, pl.estado
+            SELECT p.id, p.latitud, p.longitud, p.observacion, pl.id_luminaria, l.tipo, l.potencia, pl.estado
             from poste p
             inner join poste_luminaria pl on p.id = pl.id_poste
             inner join luminaria l on pl.id_luminaria = l.id
@@ -90,10 +90,10 @@ def rep_luminaria():
         with open(nom_arch, "w") as archivo:
             writer = csv.writer(archivo)
             writer.writerow(["id", "latitud", "longitud",
-                            "observacion", "tipo", "potencia", "estado"])
+                            "observacion", "id_luminaria", "tipo", "potencia", "estado"])
             for pl in pos_lum:
                 writer.writerow(
-                    [pl[0], pl[1], pl[2], pl[3], pl[4], pl[5], pl[6]])
+                    [pl[0], pl[1], pl[2], pl[3], pl[4], pl[5], pl[6], pl[7]])
 
 
 # sumario()
