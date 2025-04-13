@@ -2,6 +2,9 @@ from flaskext.mysql import MySQL
 from flask import Flask
 import csv
 
+# Función para generar un archivo CSV que contiene un reporte de las cantidades por tipo de luminarias
+# para cada Referencia
+
 
 def sumario():
     app = Flask(__name__)
@@ -45,6 +48,8 @@ def sumario():
             total += t[5]
             id_ant = t[0]
         writer.writerow(["Total", "", total])
+
+# Funcion para generar archivos CSV con la información de Postes y Luminarias  para cada tipo de Luminaria.
 
 
 def rep_luminaria():
@@ -96,5 +101,46 @@ def rep_luminaria():
                     [pl[0], pl[1], pl[2], pl[3], pl[4], pl[5], pl[6], pl[7]])
 
 
+# Funcion que recibe los id's de tipos de luminarias y un nombre de archivo csv para llenarlo con la información de
+# Postes y Luminarias en base a los tipos de luminarias especificados.
+def rep_luminariaId(id_lum, nom_arch):
+    app = Flask(__name__)
+    mysql = MySQL()
+
+    app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+    app.config['MYSQL_DATABASE_USER'] = 'root'
+    app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
+    app.config['MYSQL_DATABASE_DB'] = 'warnes'
+    mysql.init_app(app)
+
+    with open(nom_arch, "w") as archivo:
+        writer = csv.writer(archivo)
+        writer.writerow(["id", "latitud", "longitud", "observacion",
+                        "id_luminaria", "tipo", "potencia", "estado"])
+        for id in id_lum:
+            sql = """
+                SELECT p.id, p.latitud, p.longitud, p.observacion, pl.id_luminaria, l.tipo, l.potencia, pl.estado
+                from poste p
+                inner join poste_luminaria pl on p.id = pl.id_poste
+                inner join luminaria l on pl.id_luminaria = l.id
+                WHERE pl.id_luminaria = %s
+                ORDER BY p.id;
+                """
+            conexion = mysql.connect()
+            cursor = conexion.cursor()
+            cursor.execute(sql, (id))
+            pos_lum = cursor.fetchall()
+            conexion.commit()
+            for pl in pos_lum:
+                writer.writerow(
+                    [pl[0], pl[1], pl[2], pl[3], pl[4], pl[5], pl[6], pl[7]])
+
+
 # sumario()
-rep_luminaria()
+# rep_luminaria()
+# rep_luminariaId([3070, 4020, 2125, 3150, 1000, 0], "tmp/Varios.csv")
+# rep_luminariaId([6000, 6100, 6050, 6040, 6150], "tmp/Led.csv")
+# rep_luminariaId([1150], "tmp/Sodio150.csv")
+# rep_luminariaId([1250], "tmp/Sodio250.csv")
+# rep_luminariaId([6035], "tmp/Led35.csv")
+rep_luminariaId([1070], "tmp/Sodio70.csv")
