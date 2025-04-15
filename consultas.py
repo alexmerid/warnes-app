@@ -2,10 +2,9 @@ from flaskext.mysql import MySQL
 from flask import Flask
 import csv
 
+
 # Función para generar un archivo CSV que contiene un reporte de las cantidades por tipo de luminarias
 # para cada Referencia
-
-
 def sumario():
     app = Flask(__name__)
     mysql = MySQL()
@@ -49,9 +48,8 @@ def sumario():
             id_ant = t[0]
         writer.writerow(["Total", "", total])
 
+
 # Funcion para generar archivos CSV con la información de Postes y Luminarias  para cada tipo de Luminaria.
-
-
 def rep_luminaria():
     app = Flask(__name__)
     mysql = MySQL()
