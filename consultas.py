@@ -1,6 +1,6 @@
+import csv
 from flaskext.mysql import MySQL
 from flask import Flask
-import csv
 
 
 # Función para generar un archivo CSV que contiene un reporte de las cantidades por tipo de luminarias
