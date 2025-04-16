@@ -16,14 +16,26 @@ CREATE TABLE
     );
 
 CREATE TABLE
+    censista (
+        id int not null,
+        nombre varchar(255),
+        usuario varchar(25),
+        pass varchar(25),
+        PRIMARY KEY (id)
+    );
+
+CREATE TABLE
     poste (
         id int auto_increment,
         latitud double,
         longitud double,
         observacion varchar(255),
         id_referencia int,
+        id_censista int,
+        fecha_censo date,
         PRIMARY KEY (id),
-        FOREIGN KEY (id_referencia) REFERENCES referencia (id) ON DELETE NO ACTION ON UPDATE CASCADE
+        FOREIGN KEY (id_referencia) REFERENCES referencia (id) ON DELETE NO ACTION ON UPDATE CASCADE,
+        FOREIGN KEY (id_censista) REFERENCES censista (id) ON DELETE NO ACTION ON UPDATE CASCADE
     );
 
 CREATE TABLE
@@ -80,6 +92,7 @@ from
 
 /* Cantidad Total de Luminarias por Tipo y Potencia */
 SELECT
+    l.id,
     l.tipo,
     l.potencia,
     count(pl.id_luminaria)
@@ -130,11 +143,3 @@ set
 where
     id >= 1
     and id <= 268;
-
-/* SELECT p.id, CONCAT ('POINT(', p.longitud, ' ', p.latitud, ')') as wkt, p.latitud, p.longitud, p.observacion,
-l.tipo, l.potencia, pl.estado
-from poste p
-inner join poste_luminaria pl on p.id = pl.id_poste
-inner join luminaria l on pl.id_luminaria = l.id
-WHERE p.id > 268
-ORDER BY p.id; */
