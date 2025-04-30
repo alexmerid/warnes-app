@@ -93,10 +93,9 @@ def rep_luminaria():
                     [pl[0], pl[1], pl[2], pl[3], pl[4], pl[5], pl[6], pl[7]])
 
 
-# Funcion que recibe los id's de tipos de luminarias, un nombre de archivo csv y un rango de referencias para generar
-# un archivo csv con la información de Postes y Luminarias en base a los tipos de luminarias y el rango de referencias
-# especificados
-def rep_luminariaId(id_lum, nom_arch, ref_ini=1, ref_fin=15000):
+# Funcion que recibe los id's de tipos de luminarias, un nombre de archivo csv para generar un archivo csv con la
+# información de Postes y Luminarias en base a los tipos de luminarias especificados
+def rep_luminariaId(id_lum, nom_arch):
     with open(nom_arch, "w") as archivo:
         writer = csv.writer(archivo)
         writer.writerow(["id", "latitud", "longitud", "observacion",
@@ -108,13 +107,11 @@ def rep_luminariaId(id_lum, nom_arch, ref_ini=1, ref_fin=15000):
                 inner join poste_luminaria pl on p.id = pl.id_poste
                 inner join luminaria l on pl.id_luminaria = l.id
                 WHERE pl.id_luminaria = %s
-                AND p.id_referencia >= %s
-                AND p.id_referencia  < %s
                 ORDER BY p.id;
                 """
             conexion = mysql.connect()
             cursor = conexion.cursor()
-            cursor.execute(sql, [id, ref_ini, ref_fin])
+            cursor.execute(sql, (id))
             pos_lum = cursor.fetchall()
             conexion.commit()
             for pl in pos_lum:
