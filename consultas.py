@@ -124,12 +124,12 @@ def rep_luminariaId(id_lum, nom_arch):
 
 sumario()
 
-rep_luminariaId([0, 1000, 2000, 2125, 3035, 3070, 3150, 4020, 4040],
-                "tmp/Varios.csv")
-rep_luminariaId([6000, 6040, 6050, 6060, 6100, 6150, 6350], "tmp/Led.csv")
-rep_luminariaId([1070], "tmp/Sodio70.csv")
-rep_luminariaId([1150], "tmp/Sodio150.csv")
-rep_luminariaId([1250], "tmp/Sodio250.csv")
-rep_luminariaId([6035], "tmp/Led35.csv")
+# rep_luminariaId([0, 1000, 2000, 2125, 3035, 3070, 3150, 4020, 4040],
+#                 "tmp/Varios.csv")
+# rep_luminariaId([6000, 6040, 6050, 6060, 6100, 6150, 6350], "tmp/Led.csv")
+# rep_luminariaId([1070], "tmp/Sodio70.csv")
+# rep_luminariaId([1150], "tmp/Sodio150.csv")
+# rep_luminariaId([1250], "tmp/Sodio250.csv")
+# rep_luminariaId([6035], "tmp/Led35.csv")
 
 # rep_luminaria()
