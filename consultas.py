@@ -96,6 +96,7 @@ def rep_luminaria():
 # Funcion que recibe los id's de tipos de luminarias, un nombre de archivo csv para generar un archivo csv con la
 # información de Postes y Luminarias en base a los tipos de luminarias especificados
 def rep_luminariaId(id_lum, nom_arch):
+    cant = 0
     with open(nom_arch, "w") as archivo:
         writer = csv.writer(archivo)
         writer.writerow(["id", "latitud", "longitud", "observacion",
@@ -117,16 +118,18 @@ def rep_luminariaId(id_lum, nom_arch):
             for pl in pos_lum:
                 writer.writerow(
                     [pl[0], pl[1], pl[2], pl[3], pl[4], pl[5], pl[6], pl[7]])
+                cant += 1
+        print(f"{nom_arch}: {cant}")
 
 
 sumario()
 
-# rep_luminariaId([0, 1000, 2000, 2125, 3070, 3150, 4020, 4040],
-#                 "tmp/Varios.csv")
-# rep_luminariaId([6000, 6040, 6050, 6100, 6150], "tmp/Led.csv")
-# rep_luminariaId([1070], "tmp/Sodio70.csv")
-# rep_luminariaId([1150], "tmp/Sodio150.csv")
-# rep_luminariaId([1250], "tmp/Sodio250.csv")
-# rep_luminariaId([6035], "tmp/Led35.csv")
+rep_luminariaId([0, 1000, 2000, 2125, 3035, 3070, 3150, 4020, 4040],
+                "tmp/Varios.csv")
+rep_luminariaId([6000, 6040, 6050, 6060, 6100, 6150, 6350], "tmp/Led.csv")
+rep_luminariaId([1070], "tmp/Sodio70.csv")
+rep_luminariaId([1150], "tmp/Sodio150.csv")
+rep_luminariaId([1250], "tmp/Sodio250.csv")
+rep_luminariaId([6035], "tmp/Led35.csv")
 
 # rep_luminaria()
