@@ -1,4 +1,5 @@
 import csv
+import os
 from flaskext.mysql import MySQL
 from flask import Flask
 
@@ -93,7 +94,8 @@ def rep_luminaria():
 
 
 # Funcion que recibe los id's de tipos de luminarias y un nombre de archivo csv para generar un archivo csv con la
-# información de Postes y Luminarias en base a los tipos de luminarias especificados
+# información de Postes y Luminarias en base a los tipos de luminarias especificados. Adicionalmente añade la
+# cantidad de Luminarias al nombre del archivo
 def rep_luminariaId(id_lum, nom_arch):
     cant = 0
     with open(nom_arch, "w") as archivo:
@@ -118,11 +120,15 @@ def rep_luminariaId(id_lum, nom_arch):
                 writer.writerow(
                     [pl[0], pl[1], pl[2], pl[3], pl[4], pl[5], pl[6], pl[7]])
                 cant += 1
-        print(f"{nom_arch}: {cant}")
+    # print(f"{nom_arch}: {cant}")
+    nom, ext = os.path.splitext(nom_arch)
+    os.rename(nom_arch, f"{nom}-{cant}{ext}")
 
 
 # Funcion que recibe el id de una referencia y un nombre de archivo csv para generar un archivo csv con la
 # información de Postes y Luminarias para todo el distrito de la referencia
+
+
 def rep_distrito(ref, nom_arch):
     ref_ini = ref // 1000 * 1000
     ref_fin = ref_ini + 1000
@@ -152,7 +158,7 @@ def rep_distrito(ref, nom_arch):
         print(f"{nom_arch}: {cant}")
 
 
-sumario()
+# sumario()
 
 # rep_luminariaId([0, 1000, 2000, 2125, 3035, 3070, 3150, 4020, 4040],
 #                 "tmp/Varios.csv")
@@ -161,7 +167,6 @@ sumario()
 # rep_luminariaId([1150], "tmp/Sodio150.csv")
 # rep_luminariaId([1250], "tmp/Sodio250.csv")
 # rep_luminariaId([6035], "tmp/Led35.csv")
-
 
 # rep_distrito(51000, "tmp/Circunvalacion.csv")
 # rep_distrito(52000, "tmp/RN4-Norte.csv")
