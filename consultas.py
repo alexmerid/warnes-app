@@ -127,8 +127,6 @@ def rep_luminariaId(id_lum, nom_arch):
 
 # Funcion que recibe el id de una referencia y un nombre de archivo csv para generar un archivo csv con la
 # información de Postes y Luminarias para todo el distrito de la referencia
-
-
 def rep_distrito(ref, nom_arch):
     ref_ini = ref // 1000 * 1000
     ref_fin = ref_ini + 1000
